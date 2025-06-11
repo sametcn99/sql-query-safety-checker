@@ -1,0 +1,1 @@
+# sql-query-safety-checker
