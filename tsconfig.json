@@ -3,10 +3,12 @@
     // Environment setup & latest features
     "lib": ["ESNext"],
     "target": "ES2020",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "moduleDetection": "force",
     "allowJs": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
 
     // Output configuration
     "outDir": "./dist",
@@ -28,6 +30,6 @@
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false
   },
-  "include": ["index.ts"],
+  "include": ["src/**/*", "index.ts"],
   "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
 }

@@ -36,7 +36,10 @@ bun add sql-query-safety-checker
 ### Basic Usage
 
 ```typescript
-import { SQLQuerySafetyChecker, analyzeQuerySecurity } from 'sql-query-safety-checker';
+import {
+  SQLQuerySafetyChecker,
+  analyzeQuerySecurity,
+} from "sql-query-safety-checker";
 
 // Create a checker instance
 const checker = new SQLQuerySafetyChecker();
@@ -45,23 +48,23 @@ const checker = new SQLQuerySafetyChecker();
 const query = "SELECT * FROM users WHERE id = 1";
 const analysis = checker.analyzeQuery(query);
 
-console.log('Security Level:', analysis.securityLevel);
-console.log('Is Dangerous:', analysis.isDangerous);
-console.log('Is Read-Only:', analysis.isSelectOnly);
-console.log('Threats:', analysis.threats);
-console.log('Recommendations:', analysis.recommendations);
+console.log("Security Level:", analysis.securityLevel);
+console.log("Is Dangerous:", analysis.isDangerous);
+console.log("Is Read-Only:", analysis.isSelectOnly);
+console.log("Threats:", analysis.threats);
+console.log("Recommendations:", analysis.recommendations);
 ```
 
 ### Quick Safety Check
 
 ```typescript
-import { isQuerySafe } from 'sql-query-safety-checker';
+import { isQuerySafe } from "sql-query-safety-checker";
 
 const safeQuery = "SELECT name, email FROM users";
 const dangerousQuery = "DROP TABLE users";
 
-console.log('Safe query:', isQuerySafe(safeQuery)); // true
-console.log('Dangerous query:', isQuerySafe(dangerousQuery)); // false
+console.log("Safe query:", isQuerySafe(safeQuery)); // true
+console.log("Dangerous query:", isQuerySafe(dangerousQuery)); // false
 ```
 
 ## 📚 API Reference
@@ -92,9 +95,9 @@ const checker = new SQLQuerySafetyChecker();
 enum SecurityLevel {
   SAFE = "safe",
   LOW_RISK = "low_risk",
-  MEDIUM_RISK = "medium_risk", 
+  MEDIUM_RISK = "medium_risk",
   HIGH_RISK = "high_risk",
-  CRITICAL = "critical"
+  CRITICAL = "critical",
 }
 ```
 
@@ -144,7 +147,10 @@ Validates a query against a security policy.
 
 ```typescript
 const policy = ["SELECT", "WITH", "EXPLAIN"];
-const validation = validateQueryAgainstPolicy("INSERT INTO logs VALUES (1)", policy);
+const validation = validateQueryAgainstPolicy(
+  "INSERT INTO logs VALUES (1)",
+  policy,
+);
 console.log(validation);
 // {
 //   isValid: false,
@@ -176,7 +182,7 @@ console.log(summary); // "2 critical threat(s)"
 The library categorizes SQL operations into different security categories:
 
 - **DML (Data Manipulation Language)**: INSERT, UPDATE, DELETE, MERGE operations
-- **DDL (Data Definition Language)**: CREATE, ALTER, DROP, TRUNCATE operations  
+- **DDL (Data Definition Language)**: CREATE, ALTER, DROP, TRUNCATE operations
 - **DCL (Data Control Language)**: GRANT, REVOKE operations
 - **INJECTION**: SQL injection patterns and suspicious constructs
 - **ADMIN**: Administrative operations like BACKUP, RESTORE
@@ -190,34 +196,34 @@ The library detects various SQL injection patterns:
 
 ```typescript
 // Union-based injection
-"SELECT * FROM users UNION SELECT password FROM admin"
+"SELECT * FROM users UNION SELECT password FROM admin";
 
-// Boolean-based injection  
-"SELECT * FROM users WHERE id = 1 OR 1=1"
+// Boolean-based injection
+"SELECT * FROM users WHERE id = 1 OR 1=1";
 
 // Time-based injection
-"SELECT * FROM users WHERE id = 1; WAITFOR DELAY '00:00:05'"
+"SELECT * FROM users WHERE id = 1; WAITFOR DELAY '00:00:05'";
 
 // Comment-based evasion
-"SELECT * FROM users WHERE id = 1 /* comment */ OR 1=1"
+"SELECT * FROM users WHERE id = 1 /* comment */ OR 1=1";
 ```
 
 ### Dangerous Operations
 
 ```typescript
 // Critical operations
-"DROP TABLE users"
-"EXEC xp_cmdshell 'format c:'"
-"GRANT ALL PRIVILEGES TO 'user'@'%'"
+"DROP TABLE users";
+"EXEC xp_cmdshell 'format c:'";
+"GRANT ALL PRIVILEGES TO 'user'@'%'";
 
 // High-risk operations
-"DELETE FROM users"
-"CREATE TABLE sensitive_data"
-"ALTER TABLE users DROP COLUMN password"
+"DELETE FROM users";
+"CREATE TABLE sensitive_data";
+"ALTER TABLE users DROP COLUMN password";
 
 // Medium-risk operations
-"INSERT INTO logs VALUES (1, 'action')"
-"UPDATE users SET last_login = NOW()"
+"INSERT INTO logs VALUES (1, 'action')";
+"UPDATE users SET last_login = NOW()";
 ```
 
 ## 🎯 Use Cases
@@ -225,21 +231,21 @@ The library detects various SQL injection patterns:
 ### 1. Query Validation Before Execution
 
 ```typescript
-import { SQLQuerySafetyChecker } from 'sql-query-safety-checker';
+import { SQLQuerySafetyChecker } from "sql-query-safety-checker";
 
 const checker = new SQLQuerySafetyChecker();
 
 function executeQuery(sql: string) {
   const analysis = checker.analyzeQuery(sql);
-  
+
   if (!analysis.allowExecution) {
-    throw new Error(`Query rejected: ${analysis.recommendations.join(', ')}`);
+    throw new Error(`Query rejected: ${analysis.recommendations.join(", ")}`);
   }
-  
-  if (analysis.securityLevel === 'critical') {
-    throw new Error('Critical security threat detected');
+
+  if (analysis.securityLevel === "critical") {
+    throw new Error("Critical security threat detected");
   }
-  
+
   // Safe to execute
   return database.query(sql);
 }
@@ -248,18 +254,21 @@ function executeQuery(sql: string) {
 ### 2. User Interface Integration
 
 ```typescript
-import { analyzeQuerySecurity, getSecurityLevelColor } from 'sql-query-safety-checker';
+import {
+  analyzeQuerySecurity,
+  getSecurityLevelColor,
+} from "sql-query-safety-checker";
 
 function displayQueryAnalysis(query: string) {
   const analysis = analyzeQuerySecurity(query);
   const color = getSecurityLevelColor(analysis.securityLevel);
-  
+
   return {
     level: analysis.securityLevel,
     color: color,
-    warnings: analysis.threats.map(t => t.description),
+    warnings: analysis.threats.map((t) => t.description),
     recommendations: analysis.recommendations,
-    canExecute: analysis.allowExecution
+    canExecute: analysis.allowExecution,
   };
 }
 ```
@@ -267,23 +276,26 @@ function displayQueryAnalysis(query: string) {
 ### 3. Policy Enforcement
 
 ```typescript
-import { validateQueryAgainstPolicy } from 'sql-query-safety-checker';
+import { validateQueryAgainstPolicy } from "sql-query-safety-checker";
 
 const readOnlyPolicy = {
-  allowedOperations: ['SELECT', 'WITH', 'EXPLAIN', 'DESCRIBE', 'SHOW'],
-  maxRiskLevel: 'low_risk',
+  allowedOperations: ["SELECT", "WITH", "EXPLAIN", "DESCRIBE", "SHOW"],
+  maxRiskLevel: "low_risk",
   blockInjectionPatterns: true,
-  requireConfirmationFor: ['medium_risk', 'high_risk']
+  requireConfirmationFor: ["medium_risk", "high_risk"],
 };
 
 function enforcePolicy(query: string) {
-  const validation = validateQueryAgainstPolicy(query, readOnlyPolicy.allowedOperations);
-  
+  const validation = validateQueryAgainstPolicy(
+    query,
+    readOnlyPolicy.allowedOperations,
+  );
+
   if (!validation.isValid) {
-    console.error('Policy violations:', validation.violations);
+    console.error("Policy violations:", validation.violations);
     return false;
   }
-  
+
   return true;
 }
 ```
@@ -291,17 +303,17 @@ function enforcePolicy(query: string) {
 ### 4. Security Monitoring
 
 ```typescript
-import { analyzeQuerySecurity } from 'sql-query-safety-checker';
+import { analyzeQuerySecurity } from "sql-query-safety-checker";
 
 function logSecurityEvents(query: string, userId: string) {
   const analysis = analyzeQuerySecurity(query);
-  
+
   if (analysis.threats.length > 0) {
-    console.warn('Security threat detected:', {
+    console.warn("Security threat detected:", {
       userId,
       query: query.substring(0, 100), // Log first 100 chars
       threats: analysis.threats,
-      securityLevel: analysis.securityLevel
+      securityLevel: analysis.securityLevel,
     });
   }
 }
@@ -322,7 +334,7 @@ bun test injection.test.ts
 Test categories:
 
 - Basic functionality tests
-- SQL injection detection tests  
+- SQL injection detection tests
 - Security policy validation tests
 - Performance benchmarks
 - Edge cases and malformed queries
@@ -336,18 +348,18 @@ You can define custom security policies for different environments:
 ```typescript
 // Development environment - more permissive
 const devPolicy = {
-  allowedOperations: ['SELECT', 'INSERT', 'UPDATE', 'CREATE', 'DROP'],
-  maxRiskLevel: 'high_risk',
+  allowedOperations: ["SELECT", "INSERT", "UPDATE", "CREATE", "DROP"],
+  maxRiskLevel: "high_risk",
   blockInjectionPatterns: true,
-  requireConfirmationFor: ['critical']
+  requireConfirmationFor: ["critical"],
 };
 
 // Production environment - restrictive
 const prodPolicy = {
-  allowedOperations: ['SELECT', 'WITH', 'EXPLAIN'],
-  maxRiskLevel: 'low_risk', 
+  allowedOperations: ["SELECT", "WITH", "EXPLAIN"],
+  maxRiskLevel: "low_risk",
   blockInjectionPatterns: true,
-  requireConfirmationFor: ['medium_risk', 'high_risk', 'critical']
+  requireConfirmationFor: ["medium_risk", "high_risk", "critical"],
 };
 ```
 
