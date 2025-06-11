@@ -1,0 +1,70 @@
+{
+  "name": "sql-query-safety-checker",
+  "version": "1.0.0",
+  "description": "Comprehensive SQL query safety checker with injection detection and security analysis",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "bunup",
+    "dev": "bunup --watch",
+    "prepublishOnly": "bun run build",
+    "test": "bun test",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "sql",
+    "security",
+    "injection",
+    "query",
+    "safety",
+    "checker",
+    "typescript",
+    "database"
+  ],
+  "author": "sametcn99",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sametcn99/sql-query-safety-checker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sametcn99/sql-query-safety-checker/issues"
+  },
+  "homepage": "https://github.com/sametcn99/sql-query-safety-checker#readme",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "bunup": "^0.8.35",
+    "prettier": "3.5.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "bunup": {
+    "entry": [
+      "index.ts"
+    ],
+    "format": [
+      "esm",
+      "cjs"
+    ],
+    "dts": true,
+    "outDir": "dist",
+    "target": "node",
+    "clean": true
+  }
+}

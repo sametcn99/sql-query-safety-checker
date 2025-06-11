@@ -1,0 +1,41 @@
+# Source files
+*.ts
+!dist/**/*.d.ts
+
+# Development files
+bunup.config.ts
+tsconfig.json
+tsup.config.ts
+.vscode/
+.github/
+
+# Build tools
+node_modules/
+bun.lockb
+
+# Documentation
+docs/
+
+# Tests
+test/
+tests/
+__tests__/
+*.test.*
+*.spec.*
+
+# Git
+.git
+.gitignore
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
