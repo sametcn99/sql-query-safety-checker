@@ -8,6 +8,7 @@ A comprehensive TypeScript library for analyzing SQL queries and detecting poten
 
 ## 🚀 Features
 
+- **🔌 Express Middleware Integration**: Built-in Express middleware for automatic query validation in web applications
 - **🔍 SQL Injection Detection**: Identifies common SQL injection patterns including UNION attacks, boolean-based injections, and comment-based evasion
 - **⚠️ Risk Assessment**: Categorizes operations by security level (Safe, Low Risk, Medium Risk, High Risk, Critical)
 - **📊 Comprehensive Analysis**: Detailed threat analysis with descriptions and recommendations
