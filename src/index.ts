@@ -19,5 +19,8 @@ export * from "./ui-helpers";
 // Export main checker class
 export * from "./checker";
 
+// Export middleware
+export * from "./express-middleware";
+
 // Default export for convenience
 export { createSafetyChecker } from "./checker";

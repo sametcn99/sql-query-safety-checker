@@ -7,4 +7,5 @@ export default defineConfig({
   outDir: "dist",
   target: "node",
   clean: true,
+  external: ["express"],
 });
