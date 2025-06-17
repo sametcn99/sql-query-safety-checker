@@ -1,7 +1,7 @@
 {
   "name": "sql-query-safety-checker",
-  "version": "1.1.1",
-  "description": "Comprehensive SQL query safety checker with injection detection and security analysis",
+  "version": "1.1.2",
+  "description": "🛡️ Comprehensive TypeScript library for SQL query security analysis with injection detection, risk assessment, and Express middleware integration",
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -14,7 +14,9 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "build": "bunup",
@@ -31,9 +33,28 @@
     "safety",
     "checker",
     "typescript",
-    "database"
+    "database",
+    "sql-injection",
+    "security-analysis",
+    "express-middleware",
+    "query-validation",
+    "cybersecurity",
+    "web-security",
+    "database-security",
+    "nodejs",
+    "typescript-library",
+    "risk-assessment",
+    "vulnerability-scanner",
+    "security-tools",
+    "penetration-testing",
+    "owasp",
+    "sql-parser",
+    "threat-detection"
   ],
-  "author": "sametcn99",
+  "author": {
+    "name": "sametcn99",
+    "url": "https://sametcc.me"
+  },
   "license": "GPL-3.0",
   "repository": {
     "type": "git",
@@ -57,6 +78,10 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/sametcn99"
   },
   "bunup": {
     "entry": [
